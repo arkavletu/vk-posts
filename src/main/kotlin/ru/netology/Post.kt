@@ -41,7 +41,6 @@ class Post internal constructor(
             ?: this.ownerId //Suspicious 'var' property: its setter does not influence its getter result
 
 
-
     override fun toString(): String {
         return "$id owner $ownerId\n$date\nAuthor $fromId\n$text\n$likes " +
                 "likes $reposts reposts\n${original?.id} $fromId $replyOwnerId"

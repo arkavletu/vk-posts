@@ -1,9 +1,5 @@
 package ru.netology
 
-import ru.netology.attachment.Attachment
-import ru.netology.attachment.AudioAttachment
-import ru.netology.attachment.PhotoAttachment
-
 
 object WallService {
 
