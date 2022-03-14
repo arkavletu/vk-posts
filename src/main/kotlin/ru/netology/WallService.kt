@@ -1,5 +1,9 @@
 package ru.netology
 
+import ru.netology.attachment.Attachment
+import ru.netology.attachment.AudioAttachment
+import ru.netology.attachment.PhotoAttachment
+
 
 object WallService {
 
@@ -14,9 +18,9 @@ object WallService {
         return posts.last()
     }
 
-    fun makeId(post: Post): Post{
-        val postWithId = post.copy(id = posts.indexOf(post) + 1)
-        return postWithId
+    fun makeId(post: Post): Post {
+        post.id = posts.indexOf(post) + 1
+        return post
     }
 
     fun update(post: Post): Boolean {
@@ -33,4 +37,6 @@ object WallService {
     fun emptySingleton() {
         posts = emptyArray()
     }
+
+
 }
