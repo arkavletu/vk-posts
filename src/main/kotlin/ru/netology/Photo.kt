@@ -1,4 +1,4 @@
-package ru.netology.attachment
+package ru.netology
 
 import java.time.LocalDateTime
 
@@ -8,8 +8,8 @@ class Photo internal constructor(
     private val width: Int,
     private val height: Int,
     private val date: LocalDateTime? = LocalDateTime.now(),
-    text: String,
-    albumId: Int
+    text: String?,
+    albumId: Int?
 ) {
 
     private var text: String? = null

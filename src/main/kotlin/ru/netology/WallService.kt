@@ -1,7 +1,5 @@
 package ru.netology
 
-import ru.netology.attachment.*
-
 
 object WallService {
 
@@ -36,8 +34,27 @@ object WallService {
         posts = emptyArray()
     }
 
-    fun attach(post: Post, attachment: Attachment){
+    fun attach(post: Post, attachment: Attachment) {
         post.attachment += attachment
     }
 
+    fun print(attachment: Attachment): String {
+        return when (attachment) {
+            is Attachment.AudioAttachment -> "${attachment.type}\n${attachment.audio}"
+            is Attachment.DocumentAttachment -> "${attachment.type}\n${attachment.doc}"
+            is Attachment.EventAttachment -> "${attachment.type}\n${attachment.event}"
+            is Attachment.NoteAttachment -> "${attachment.type}\n${attachment.note}"
+            is Attachment.PhotoAttachment -> "${attachment.type}\n${attachment.photo}"
+        }
+    }
+
+    fun printAttachment(post: Post) {
+        if (post.attachment.isNotEmpty()) {
+            for (element in post.attachment) {
+                println(print(element))
+            }
+        } else {
+            println("No attachments")
+        }
+    }
 }

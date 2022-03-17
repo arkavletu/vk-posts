@@ -1,10 +1,10 @@
 package ru.netology
 
 
-import ru.netology.attachment.*
+
 import java.time.LocalDateTime
 
-class Post internal constructor(
+data class Post internal constructor(
 
     private val text: String,
     internal val original: Post?,
@@ -37,14 +37,13 @@ class Post internal constructor(
 
     var attachment = emptyArray<Attachment>()
 
-    fun printAttachment(): String {
-      return  "attached ${attachment.contentToString()}"
-    }
+
+
 
     override fun toString(): String {
         return "id $id \n owner $ownerId\n $date\n Author $fromId\n $text\n $likes " +
                 "likes $reposts reposts\n original post ${original?.id}\n author of post " +
-                "$fromId \n owner of original $replyOwnerId\n ${printAttachment()}"
+                "$fromId \n owner of original $replyOwnerId"
     }
 
 

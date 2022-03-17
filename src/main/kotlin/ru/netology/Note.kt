@@ -1,4 +1,4 @@
-package ru.netology.attachment
+package ru.netology
 
 import java.time.LocalDateTime
 
