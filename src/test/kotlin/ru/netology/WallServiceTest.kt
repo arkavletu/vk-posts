@@ -11,7 +11,7 @@ class WallServiceTest {
     fun add() {
         WallService.emptySingleton()
 
-        val postForTest = Post("test")
+        val postForTest = Post("test", null)
         WallService.add(postForTest)
 
         val result = postForTest.id
@@ -24,10 +24,10 @@ class WallServiceTest {
     fun updateReturnFalse() {
         WallService.emptySingleton()
 
-        WallService.add(Post("test"))
-        WallService.add(Post("another test"))
+        WallService.add(Post("test", null))
+        WallService.add(Post("another test", null))
 
-        val postToUpdate = Post("no thanks", id = 4)
+        val postToUpdate = Post("no thanks", null, id = 4)
         val result = WallService.update(postToUpdate)
 
         assertFalse(result)
@@ -37,10 +37,10 @@ class WallServiceTest {
     fun updateReturnTrue() {
         WallService.emptySingleton()
 
-        WallService.add(Post("test"))
-        WallService.add(Post("need to update"))
+        WallService.add(Post("test", null))
+        WallService.add(Post("need to update", null))
 
-        val postToUpdate = Post("updated", id = 2)
+        val postToUpdate = Post("updated", WallService.posts[0], id = 2)
         val result = WallService.update(postToUpdate)
 
         assertTrue(result)
