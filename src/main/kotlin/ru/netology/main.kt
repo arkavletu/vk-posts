@@ -1,13 +1,11 @@
 package ru.netology
 
-import ru.netology.attachment.*
-
 
 fun main() {
-    val postToUpdate = Post("updated", null, friendsOnly = true, ownerId = 2)
-    WallService.add(postToUpdate)
+    val postToBeOriginal = Post("updated", null, friendsOnly = true, ownerId = 2)
+    WallService.add(postToBeOriginal)
     WallService.add(Post("first post", null))
-    WallService.add(Post("second post", postToUpdate))
+    WallService.add(Post("second post", postToBeOriginal))
     WallService.add(Post("need to update", null))
 
 

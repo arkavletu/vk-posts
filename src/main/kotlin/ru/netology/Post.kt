@@ -1,7 +1,6 @@
 package ru.netology
 
 
-
 import java.time.LocalDateTime
 
 class Post internal constructor(
@@ -16,7 +15,7 @@ class Post internal constructor(
     internal var id: Int = 0,
     private val date: LocalDateTime? = LocalDateTime.now(),
 
-) {
+    ) {
 
     var fromId: Int? = 0
         set(value) {
@@ -24,7 +23,7 @@ class Post internal constructor(
                 if (value < 0) return
             } else field = value
         }
-        get() = original?.ownerId?: this.ownerId 
+        get() = original?.ownerId ?: this.ownerId
 
     var replyOwnerId: Int? = 0
         set(value) {
@@ -32,7 +31,7 @@ class Post internal constructor(
                 if (value < 0) return
             } else field = value
         }
-        get() = original?.fromId?: this.ownerId
+        get() = original?.fromId ?: this.ownerId
 
 
     override fun toString(): String {
