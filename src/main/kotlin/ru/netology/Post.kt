@@ -7,19 +7,14 @@ import java.time.LocalDateTime
 class Post internal constructor(
 
     private val text: String,
-    val original: Post?,
-    //fromId: Int?, //от кого запись
-    //replyOwnerId: Int?, // чью запись репостнули
-
+    internal val original: Post?,
     private val ownerId: Int = 1, //чья стена
     private val friendsOnly: Boolean = false,
+    private val isPinned: Boolean = false,
     private val likes: Int = 0,
     private val reposts: Int = 0,
     internal var id: Int = 0,
-    private val date: LocalDateTime? = LocalDateTime.now(), // unixtime!
-
-
-    // createdBy кто админ, isPinned закреплена ли
+    private val date: LocalDateTime? = LocalDateTime.now(),
 
 ) {
 
@@ -29,7 +24,7 @@ class Post internal constructor(
                 if (value < 0) return
             } else field = value
         }
-        get() = original?.fromId ?: this.ownerId // одинаковые
+        get() = original?.ownerId?: this.ownerId 
 
     var replyOwnerId: Int? = 0
         set(value) {
@@ -37,13 +32,13 @@ class Post internal constructor(
                 if (value < 0) return
             } else field = value
         }
-        get() = original?.fromId
-            ?: this.ownerId //Suspicious 'var' property: its setter does not influence its getter result
+        get() = original?.fromId?: this.ownerId
 
 
     override fun toString(): String {
-        return "$id owner $ownerId\n$date\nAuthor $fromId\n$text\n$likes " +
-                "likes $reposts reposts\n${original?.id} $fromId $replyOwnerId"
+        return "id $id \n owner $ownerId\n $date\n Author $fromId\n $text\n $likes " +
+                "likes $reposts reposts\n original post ${original?.id}\n author of post " +
+                "$fromId \n owner of original $replyOwnerId"
     }
 
 
