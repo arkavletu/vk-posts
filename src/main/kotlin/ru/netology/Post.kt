@@ -1,7 +1,7 @@
 package ru.netology
 
 
-import ru.netology.attachment.Attachment
+import ru.netology.attachment.*
 import java.time.LocalDateTime
 
 class Post internal constructor(
