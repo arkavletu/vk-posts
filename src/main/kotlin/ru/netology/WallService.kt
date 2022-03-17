@@ -1,5 +1,7 @@
 package ru.netology
 
+import ru.netology.attachment.*
+
 
 object WallService {
 
@@ -34,5 +36,9 @@ object WallService {
         posts = emptyArray()
     }
 
+    fun attach(post: Post, attachment: Attachment){
+
+        post.attachment += attachment
+    }
 
 }
