@@ -1,8 +1,9 @@
 package ru.netology
 
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
+import ru.netology.attachment.*
+import ru.netology.attachment.Photo
 
 class WallServiceTest {
 
@@ -44,6 +45,18 @@ class WallServiceTest {
         val result = WallService.update(postToUpdate)
 
         assertTrue(result)
+    }
+    @Test
+    fun attachTest(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+        val photoTest = Photo(1, 1, 1, 3, text = "text", albumId = 0)
+        WallService.attach(WallService.posts[0], PhotoAttachment(photoTest))
+
+        val result = WallService.posts[0].attachment.isNotEmpty()
+        assertTrue(result)
+
     }
 
 }

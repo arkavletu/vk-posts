@@ -37,7 +37,6 @@ object WallService {
     }
 
     fun attach(post: Post, attachment: Attachment){
-
         post.attachment += attachment
     }
 
