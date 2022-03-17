@@ -7,7 +7,7 @@ abstract class Attachment() {
    abstract val objectType: Any
 
    override fun toString(): String{
-      return "\n$type, ${objectType.toString()}"
+      return "\n\n$type, $objectType"
    }
 
 

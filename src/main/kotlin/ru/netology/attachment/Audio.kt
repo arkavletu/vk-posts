@@ -1,21 +1,43 @@
 package ru.netology.attachment
 
-class Audio (
-    val id: Int,
-    val ownerId: Int,
-    val artist: String,
-    val title: String,
-    val duration: Int, //sec
-    val url: String,
-    val text: String?,
-    val album: String?,
-    val date: Int,
-    val genre: String, // enum
-    val canSearch: Boolean = true
+import java.time.LocalDateTime
+
+class Audio internal constructor(
+    private val id: Int,
+    private val ownerId: Int,
+    private val artist: String,
+    private val title: String,
+    private val duration: Int,
+    private val genre: Int,
+    text: String?,
+    album: String?,
+    private val url: String = "www.muzona.net",
+    private val date: LocalDateTime? = LocalDateTime.now(),
+    private val canSearch: Boolean = true,
+
         ) {
 
-    override fun toString(): String{
-        return "audio"//"audio id $id\nartist $artist\ntitle $title"
+    private var text: String? = null
+        set(value) {
+            if (value != null ) field = value
+        }
+
+    private var album: String? = null
+        set(value) {
+            if (value != null ) field = value
+        }
+
+    fun getGenre(digit: Int): String {
+        val types = arrayOf("pop","rap","classical","rock","неизвестный формат")
+        return when (digit) {
+            in 0..types.size -> types[digit - 1]
+            else -> {"error"}
+        }
     }
-//TODO сделать поля чтобы отображались в зависимости от того откуда аудио
+
+    override fun toString(): String{
+        return "audio id $id, owner $ownerId\n$date\nartist $artist\ntitle $title\nduration " +
+                "$duration\ngenre ${getGenre(genre)}\nalbum $album text $text\n$url"
+    }
+
 }

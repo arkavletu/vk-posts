@@ -5,9 +5,7 @@ class AudioAttachment(val audio: Audio): Attachment() {
 
     override val objectType = audio
 
-    override fun toString(): String {
-        return objectType.toString()
-    }
+
 
 
 
