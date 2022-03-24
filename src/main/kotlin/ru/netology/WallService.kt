@@ -23,6 +23,8 @@ object WallService {
     fun update(post: Post): Boolean {
         for (Post in posts) {
             if (post.id == Post.id) {
+                post.ownerId == Post.ownerId
+                post.date == Post.date
                 posts[posts.indexOf(Post)] = post
                 return true
             }
@@ -55,13 +57,22 @@ object WallService {
         }
     }
 
-    fun printAttachment(post: Post) {
-        if (post.attachment.isNotEmpty()) {
-            for (element in post.attachment) {
-                println(print(element))
+    fun printAttachment(any: Any) {
+        when(any) {
+            is Post ->   if (any.attachment.isNotEmpty()) {
+                for (element in any.attachment) {
+                    println(print(element))
+                }
+            } else {
+                println("No attachments")
             }
-        } else {
-            println("No attachments")
+         is Comment ->    if (any.attachment.isNotEmpty()) {
+             for (element in any.attachment) {
+                 println(print(element))
+             }
+         } else {
+             println("No attachments")
+         }
         }
     }
 
@@ -70,7 +81,7 @@ object WallService {
             if (post.id == comment.postId) {
                 comments += comment
                 return true
-                comment.parentsStack += comment.postId!! // до этого не дойдет
+                comment.parentsStack += comment.postId!! // до проверки !! не дойдет, выбросит PostOrCommentNotFound - мона!
             } else {throw PostOrCommentNotFoundException()}
         }
 

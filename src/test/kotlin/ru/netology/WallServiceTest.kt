@@ -85,4 +85,18 @@ class WallServiceTest {
             parentComment = null, parentPost = postToComment))
     }
 
+    @Test
+    fun reportCommentTrue(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+
+        WallService.createComment(Comment(23,3, text = "test comment",
+            parentComment = null, parentPost = WallService.posts[0]))
+
+        WallService.reportComment(WallService.comments[0],2)
+
+        assertTrue(WallService.comments[0].reports.isNotEmpty())
+    }
+
 }
