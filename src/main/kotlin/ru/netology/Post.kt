@@ -8,13 +8,13 @@ class Post internal constructor(
 
     private val text: String,
     internal val original: Post?,
-    private val ownerId: Int = 1, //чья стена
+    internal val ownerId: Int = 1, //чья стена
     private val friendsOnly: Boolean = false,
     private val isPinned: Boolean = false,
     private val likes: Int = 0,
     private val reposts: Int = 0,
     internal var id: Int = 0,
-    private val date: LocalDateTime? = LocalDateTime.now(),
+    internal val date: LocalDateTime? = LocalDateTime.now(),
 
 
     ) {
