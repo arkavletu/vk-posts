@@ -8,7 +8,7 @@ data class Post internal constructor(
 
     private val text: String,
     internal val original: Post?,
-    private val ownerId: Int = 1, //чья стена
+    internal val ownerId: Int = 1, //чья стена
     private val friendsOnly: Boolean = false,
     private val isPinned: Boolean = false,
     private val likes: Int = 0,
@@ -19,7 +19,7 @@ data class Post internal constructor(
 
     ) {
 
-    private var fromId: Int? = 0 // от кого запись
+    var fromId: Int? = 0 // от кого запись
         set(value) {
             if (value != null) {
                 if (value < 0) return
@@ -27,7 +27,7 @@ data class Post internal constructor(
         }
         get() = original?.ownerId ?: this.ownerId
 
-    private var replyOwnerId: Int? = 0 //автор оригинала
+    var replyOwnerId: Int? = 0 //автор оригинала
         set(value) {
             if (value != null) {
                 if (value < 0) return

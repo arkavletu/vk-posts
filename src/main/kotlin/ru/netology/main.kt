@@ -12,12 +12,10 @@ fun main() {
     WallService.add(Post("need to update", null))
 
 
-    val photoTest: Attachment = PhotoAttachment(Photo(22, 1, 65, 65,
-        LocalDateTime.now(), null, null))
-    WallService.attach(postToUpdate, photoTest)
-
-    println(WallService.posts[0])
-    WallService.printAttachment(WallService.posts[0])
+    val comment1 = Comment(1, 1, text = "comment", parentPost = postToUpdate, parentComment = null)
+    WallService.attach(comment1, PhotoAttachment(Photo(111,222,345,456, LocalDateTime.now(),null,null)))
+    println(WallService.createComment(comment1))
+    WallService.reportComment(comment1, 3)
 
 
 }

@@ -60,4 +60,29 @@ class WallServiceTest {
 
     }
 
+    @Test
+    fun addComment(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+
+        WallService.createComment(Comment(23,3, text = "test comment",
+            parentComment = null, parentPost = WallService.posts[0]))
+
+        val result = WallService.comments
+
+        assertTrue(result.isNotEmpty())
+
+    }
+
+    @Test(expected = PostOrCommentNotFoundException::class)
+    fun addCommentError(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+        val postToComment = Post("updated", original = WallService.posts[0], id = 2)
+        WallService.createComment(Comment(23,3, text = "test comment",
+            parentComment = null, parentPost = postToComment))
+    }
+
 }

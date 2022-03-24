@@ -4,6 +4,7 @@ package ru.netology
 object WallService {
 
     var posts = emptyArray<Post>()
+    var comments = emptyArray<Comment>()
 
     fun add(post: Post): Post {
 
@@ -32,10 +33,16 @@ object WallService {
 
     fun emptySingleton() {
         posts = emptyArray()
+        comments = emptyArray()
     }
 
-    fun attach(post: Post, attachment: Attachment) {
-        post.attachment += attachment
+    fun attach(any: Any, attachment: Attachment) {
+       when (any){
+           is Post -> any.attachment += attachment
+           is Comment -> any.attachment += attachment
+           else -> return
+       }
+
     }
 
     fun print(attachment: Attachment): String {
@@ -56,5 +63,27 @@ object WallService {
         } else {
             println("No attachments")
         }
+    }
+
+    fun createComment(comment: Comment): Boolean {
+        for (post in posts) {
+            if (post.id == comment.postId) {
+                comments += comment
+                return true
+                comment.parentsStack += comment.postId!! // до этого не дойдет
+            } else {throw PostOrCommentNotFoundException()}
+        }
+
+        return false
+    }
+
+    fun reportComment(comment: Comment, reason: Int) {
+          for (element in comments) {
+              if (comment.id == element.id) {
+                  if (Report.values().contains(Report.values().get(reason))) {
+                      comment.reports += reason
+                  }
+              }
+          }
     }
 }
