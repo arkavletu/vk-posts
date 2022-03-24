@@ -47,7 +47,7 @@ class WallServiceTest {
         assertTrue(result)
     }
     @Test
-    fun attachTest(){
+    fun attachPostTest(){
         WallService.emptySingleton()
 
         WallService.add(Post("test",null))
@@ -61,17 +61,38 @@ class WallServiceTest {
     }
 
     @Test
+    fun attachCommentTest(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+
+
+        WallService.createComment(Comment(23,3, text = "test comment",
+            parentComment = null, parentPost = WallService.posts[0]))
+
+        val photoTest: Attachment = Attachment.PhotoAttachment(Photo(22, 1, 65, 65,
+            LocalDateTime.now(), null, null))
+        WallService.attach(WallService.comments[0], photoTest)
+
+        assertTrue(WallService.comments[0].attachment.isNotEmpty())
+
+    }
+
+    @Test
     fun addComment(){
         WallService.emptySingleton()
 
         WallService.add(Post("test",null))
 
+        val comment = Comment(12,2, LocalDateTime.now(),"nope",null,WallService.posts[0])
+        WallService.createComment(comment)
+
         WallService.createComment(Comment(23,3, text = "test comment",
-            parentComment = null, parentPost = WallService.posts[0]))
+            parentComment = comment, parentPost = null))
 
-        val result = WallService.comments
 
-        assertTrue(result.isNotEmpty())
+
+        assertTrue(WallService.comments.isNotEmpty() || WallService.comments[0].parentsStack.isNotEmpty())
 
     }
 
