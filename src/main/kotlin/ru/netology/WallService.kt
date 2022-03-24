@@ -31,7 +31,7 @@ object WallService {
 
         return false
     }
-
+    
     fun emptySingleton() {
         posts = emptyArray()
     }
