@@ -17,7 +17,7 @@ fun main() {
     WallService.attach(postToUpdate, photoTest)
 
     println(WallService.posts[0])
-    WallService.printAttachment(WallService.posts[0])
+    WallService.printAttachment(WallService.posts[0]) //проверяла точно ли надо в Post писать, как в предыдущей задаче
 
 
 }
