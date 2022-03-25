@@ -12,6 +12,9 @@ object WallService {
         if (!posts.contains(post)) {
             posts += post
             posts[posts.indexOf(post)] = makeId(post)
+            if (post.original != null) {
+                post.original.reposts++
+            }
         }
         return posts.last()
     }
@@ -24,7 +27,7 @@ object WallService {
     fun update(post: Post): Boolean {
         for (Post in posts) {
             if (post.id == Post.id) {
-                post.ownerId == Post.ownerId // push
+                post.ownerId == Post.ownerId
                 post.date == Post.date
                 posts[posts.indexOf(Post)] = post
                 return true
@@ -38,7 +41,7 @@ object WallService {
         posts = emptyArray()
     }
 
-    fun attach(post: Post, attachment: Attachment){
+    fun attach(post: Post, attachment: Attachment) {
         post.attachment += attachment
     }
 

@@ -38,19 +38,20 @@ class WallServiceTest {
     fun updateReturnTrue() {
         WallService.emptySingleton()
 
-        WallService.add(Post("test",null))
-        WallService.add(Post("need to update",null))
+        WallService.add(Post("test", null))
+        WallService.add(Post("need to update", null))
 
         val postToUpdate = Post("updated", original = WallService.posts[0], id = 2)
         val result = WallService.update(postToUpdate)
 
         assertTrue(result)
     }
+
     @Test
-    fun attachTest(){
+    fun attachTest() {
         WallService.emptySingleton()
 
-        WallService.add(Post("test",null))
+        WallService.add(Post("test", null))
         val photoTest = Photo(1, 1, 1, 3, text = "text", albumId = 0)
         WallService.attach(WallService.posts[0], PhotoAttachment(photoTest))
 
