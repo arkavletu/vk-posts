@@ -19,6 +19,7 @@ class WallServiceTest {
         assertNotNull(result)
 
 
+
     }
 
     @Test
@@ -76,6 +77,17 @@ class WallServiceTest {
 
         assertTrue(WallService.comments[0].attachment.isNotEmpty())
 
+    }
+
+    @Test(expected = PostOrCommentNotFoundException::class)
+    fun attachError(){
+        WallService.emptySingleton()
+
+        WallService.add(Post("test",null))
+        val notAPost: Event = Event(22,"www","nothing")
+        val photoTest: Attachment = Attachment.PhotoAttachment(Photo(22, 1, 65, 65,
+            LocalDateTime.now(), null, null))
+        WallService.attach(notAPost, photoTest)
     }
 
     @Test

@@ -31,8 +31,8 @@ data class Comment(
         }
     get() = parentComment?.fromId?: null
 
-    var postId: Int? = 0
-        get() = parentPost?.id?: parentComment?.postId
+    var parentId: Int? = 0
+        get() = parentPost?.id?: parentComment?.id
 
     var parentsStack = emptyArray<Int>()
 

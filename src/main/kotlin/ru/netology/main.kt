@@ -11,10 +11,15 @@ fun main() {
     WallService.add(Post("second post", postToUpdate))
     WallService.add(Post("need to update", null))
 
-    println(postToUpdate)
+    val comment = Comment(12,2, LocalDateTime.now(),"nope",null,WallService.posts[0])
+    WallService.createComment(comment)
 
-    WallService.update(Post(id = 1,text = "text updated", original = null))
-    println(postToUpdate)
+    WallService.createComment(Comment(23,3, text = "test comment",
+        parentComment = comment, parentPost = null))
+
+    println(comment.parentsStack.contentToString())
+    println(WallService.comments[1].parentsStack.contentToString())
+
 
 
 }

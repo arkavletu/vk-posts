@@ -11,8 +11,8 @@ object WallService {
         if (!posts.contains(post)) {
             posts += post
             posts[posts.indexOf(post)] = makeId(post)
-            if(post.original != null){
-                post.original.reposts ++
+            if (post.original != null) {
+                post.original.reposts++
             }
         }
         return posts.last()
@@ -26,8 +26,8 @@ object WallService {
     fun update(post: Post): Boolean {
         for (Post in posts) {
             if (post.id == Post.id) {
-                post.ownerId == Post.ownerId
-                post.date == Post.date
+                post.ownerId = Post.ownerId
+                post.date = Post.date
                 posts[posts.indexOf(Post)] = post
                 return true
             }
@@ -42,11 +42,11 @@ object WallService {
     }
 
     fun attach(any: Any, attachment: Attachment) {
-       when (any){
-           is Post -> any.attachment += attachment
-           is Comment -> any.attachment += attachment
-           else -> return
-       }
+        when (any) {
+            is Post -> any.attachment += attachment
+            is Comment -> any.attachment += attachment
+            else -> throw PostOrCommentNotFoundException()
+        }
 
     }
 
@@ -61,43 +61,45 @@ object WallService {
     }
 
     fun printAttachment(any: Any) {
-        when(any) {
-            is Post ->   if (any.attachment.isNotEmpty()) {
+        when (any) {
+            is Post -> if (any.attachment.isNotEmpty()) {
                 for (element in any.attachment) {
                     println(print(element))
                 }
             } else {
                 println("No attachments")
             }
-         is Comment ->    if (any.attachment.isNotEmpty()) {
-             for (element in any.attachment) {
-                 println(print(element))
-             }
-         } else {
-             println("No attachments")
-         }
+            is Comment -> if (any.attachment.isNotEmpty()) {
+                for (element in any.attachment) {
+                    println(print(element))
+                }
+            } else {
+                println("No attachments")
+            }
+            else -> throw PostOrCommentNotFoundException()
         }
     }
 
     fun createComment(comment: Comment): Boolean {
         for (post in posts) {
-            if (post.id == comment.postId) {
+            if (post.id == comment.parentId||post.id == comment.parentComment?.parentId) {
                 comments += comment
+                comment.parentsStack += comment.parentId!! // до проверки !! не дойдет
+                if(comment.parentComment?.parentId != null) comment.parentsStack += comment.parentComment.parentId!!
                 return true
-                comment.parentsStack += comment.postId!! // до проверки !! не дойдет, выбросит PostOrCommentNotFound - мона!
-            } else {throw PostOrCommentNotFoundException()}
+            } else throw PostOrCommentNotFoundException()
         }
 
         return false
     }
 
     fun reportComment(comment: Comment, reason: Int) {
-          for (element in comments) {
-              if (comment.id == element.id) {
-                  if (Report.values().contains(Report.values().get(reason))) {
-                      comment.reports += reason
-                  }
-              }
-          }
+        for (element in comments) {
+            if (comment.id == element.id) {
+                if (Report.values().contains(Report.values().get(reason))) {
+                    comment.reports += reason
+                }
+            }
+        }
     }
 }

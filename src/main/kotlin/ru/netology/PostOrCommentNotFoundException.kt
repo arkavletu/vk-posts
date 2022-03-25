@@ -1,4 +1,4 @@
 package ru.netology
 
-class PostOrCommentNotFoundException: RuntimeException("Nothing to reply on") {
+class PostOrCommentNotFoundException: RuntimeException("No Post or Comment to deal with") {
 }
