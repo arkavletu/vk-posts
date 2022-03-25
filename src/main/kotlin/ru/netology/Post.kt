@@ -39,10 +39,7 @@ class Post internal constructor(
         set(value) {
             if (value != null) {
                 if (value < 0) return
-            } else {
-                field = value
-                //original?.reposts = +1
-            }
+            } else field = value                        
         }
         get() = original?.id ?: 0
 
