@@ -11,6 +11,9 @@ object WallService {
         if (!posts.contains(post)) {
             posts += post
             posts[posts.indexOf(post)] = makeId(post)
+            if(post.original != null){
+                post.original.reposts ++
+            }
         }
         return posts.last()
     }

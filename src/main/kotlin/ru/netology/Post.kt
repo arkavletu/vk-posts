@@ -8,11 +8,13 @@ data class Post internal constructor(
 
     private val text: String,
     internal val original: Post?,
-    internal val ownerId: Int = 1,
+    internal val ownerId: Int = 1, //чья стена
     private val friendsOnly: Boolean = false,
     private val isPinned: Boolean = false,
+    private val isFavorite: Boolean = false,
     private val likes: Int = 0,
-    private val reposts: Int = 0,
+    internal var reposts: Int = 0,
+    private val comments: Int = 0,
     internal var id: Int = 0,
     internal val date: LocalDateTime? = LocalDateTime.now(),
 
@@ -34,6 +36,17 @@ data class Post internal constructor(
             } else field = value
         }
         get() = original?.fromId?: this.ownerId
+
+    var replyPostId: Int? = 0
+        set(value) {
+            if (value != null) {
+                if (value < 0) return
+            } else {
+                field = value
+                //original?.reposts = +1
+            }
+        }
+        get() = original?.id ?: 0
 
     var attachment = emptyArray<Attachment>()
 
