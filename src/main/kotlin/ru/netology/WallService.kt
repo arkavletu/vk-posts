@@ -27,8 +27,8 @@ object WallService {
     fun update(post: Post): Boolean {
         for (Post in posts) {
             if (post.id == Post.id) {
-                post.ownerId == Post.ownerId
-                post.date == Post.date
+                post.ownerId = Post.ownerId
+                post.date = Post.date
                 posts[posts.indexOf(Post)] = post
                 return true
             }

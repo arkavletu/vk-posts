@@ -1,9 +1,7 @@
 package ru.netology.attachment
 
-class EventAttachment(event: Event): Attachment() {
-    override val type: String = "event"
-
-    override val objectType: Any = event
-
-
+data class EventAttachment(
+    val event: Event,
+    override val type: String = "event",
+) : Attachment() {
 }

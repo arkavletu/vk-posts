@@ -1,8 +1,7 @@
 package ru.netology.attachment
 
-class DocumentAttachment(document: Document): Attachment() {
-    override val type: String = "doc"
-
-    override val objectType: Any = document
-
+data class DocumentAttachment(
+    val document: Document,
+    override val type: String = "doc",
+) : Attachment() {
 }
