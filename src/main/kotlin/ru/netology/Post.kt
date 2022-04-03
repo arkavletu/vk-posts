@@ -7,7 +7,7 @@ data class Post (
 
     private val text: String,
     internal val original: Post?,
-    internal val ownerId: Int = 1, //чья стена
+    internal var ownerId: Int = 1, //чья стена
     private val friendsOnly: Boolean = false,
     private val isPinned: Boolean = false,
     private val isFavorite: Boolean = false,
@@ -15,7 +15,7 @@ data class Post (
     internal var reposts: Int = 0,
     private val comments: Int = 0,
     internal var id: Int = 0,
-    internal val date: LocalDateTime? = LocalDateTime.now(),
+    internal var date: LocalDateTime? = LocalDateTime.now(),
 
     ) {
 
