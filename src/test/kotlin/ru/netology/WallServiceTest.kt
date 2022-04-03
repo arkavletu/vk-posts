@@ -16,10 +16,22 @@ class WallServiceTest {
         WallService.add(postForTest)
 
         val result = postForTest.id
-        assertNotNull(result)
-
-
+        assertTrue(result != 0 && WallService.posts.isNotEmpty())
     }
+
+    @Test
+    fun addRepost() {
+        WallService.emptySingleton()
+
+        val postForTest = Post("test", null)
+        WallService.add(postForTest)
+        WallService.add(Post("second post", postForTest))
+
+        val result = postForTest.id
+        val reposts = postForTest.reposts
+        assertTrue(result != 0 && reposts == 1)
+    }
+
 
     @Test
     fun updateReturnFalse() {

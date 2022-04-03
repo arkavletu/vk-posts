@@ -3,7 +3,7 @@ package ru.netology
 
 import java.time.LocalDateTime
 
-data class Post internal constructor(
+data class Post(
 
     private val text: String,
     internal val original: Post?,
@@ -16,9 +16,7 @@ data class Post internal constructor(
     private val comments: Int = 0,
     internal var id: Int = 0,
     internal val date: LocalDateTime? = LocalDateTime.now(),
-
-
-    ) {
+) {
 
     private var fromId: Int? = 0 // от кого запись
         set(value) {
