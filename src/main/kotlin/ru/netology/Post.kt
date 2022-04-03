@@ -3,7 +3,7 @@ package ru.netology
 
 import java.time.LocalDateTime
 
-class Post internal constructor(
+data class Post (
 
     private val text: String,
     internal val original: Post?,
