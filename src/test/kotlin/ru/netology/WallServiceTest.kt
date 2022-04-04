@@ -16,10 +16,20 @@ class WallServiceTest {
         WallService.add(postForTest)
 
         val result = postForTest.id
-        assertNotNull(result)
+        assertTrue(result != 0 && WallService.posts.isNotEmpty())
+    }
 
+    @Test
+    fun addRepost() {
+        WallService.emptySingleton()
 
+        val postForTest = Post("test", null)
+        WallService.add(postForTest)
+        WallService.add(Post("second post", postForTest))
 
+        val result = postForTest.id
+        val reposts = postForTest.reposts
+        assertTrue(result != 0 && reposts == 1)
     }
 
     @Test
@@ -84,7 +94,7 @@ class WallServiceTest {
         WallService.emptySingleton()
 
         WallService.add(Post("test",null))
-        val notAPost: Event = Event(22,"www","nothing")
+        val notAPost = Event(22,"www","nothing")
         val photoTest: Attachment = Attachment.PhotoAttachment(Photo(22, 1, 65, 65,
             LocalDateTime.now(), null, null))
         WallService.attach(notAPost, photoTest)
@@ -95,16 +105,17 @@ class WallServiceTest {
         WallService.emptySingleton()
 
         WallService.add(Post("test",null))
+        WallService.add(Post("test2",null))
 
-        val comment = Comment(12,2, LocalDateTime.now(),"nope",null,WallService.posts[0])
+        val comment = Comment(12,2, LocalDateTime.now(),"nope",null,WallService.posts[1])
         WallService.createComment(comment)
 
-        WallService.createComment(Comment(23,3, text = "test comment",
+        val added = WallService.createComment(Comment(23,3, text = "test comment",
             parentComment = comment, parentPost = null))
 
 
 
-        assertTrue(WallService.comments.isNotEmpty() || WallService.comments[0].parentsStack.isNotEmpty())
+        assertTrue(added)
 
     }
 
@@ -113,7 +124,8 @@ class WallServiceTest {
         WallService.emptySingleton()
 
         WallService.add(Post("test",null))
-        val postToComment = Post("updated", original = WallService.posts[0], id = 2)
+        WallService.add(Post("test2",null))
+        val postToComment = Post("updated", original = WallService.posts[0], id = 3)
         WallService.createComment(Comment(23,3, text = "test comment",
             parentComment = null, parentPost = postToComment))
     }

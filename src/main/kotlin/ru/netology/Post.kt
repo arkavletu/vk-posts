@@ -1,10 +1,9 @@
 package ru.netology
 
 
-
 import java.time.LocalDateTime
 
-data class Post internal constructor(
+data class Post(
 
     private val text: String,
     internal val original: Post?,
@@ -35,7 +34,7 @@ data class Post internal constructor(
                 if (value < 0) return
             } else field = value
         }
-        get() = original?.fromId?: this.ownerId
+        get() = original?.fromId ?: this.ownerId
 
     var replyPostId: Int? = 0
         set(value) {
@@ -49,8 +48,6 @@ data class Post internal constructor(
         get() = original?.id ?: 0
 
     var attachment = emptyArray<Attachment>()
-
-
 
 
     override fun toString(): String {

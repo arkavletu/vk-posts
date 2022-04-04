@@ -81,16 +81,18 @@ object WallService {
     }
 
     fun createComment(comment: Comment): Boolean {
+        var found = false
         for (post in posts) {
             if (post.id == comment.parentId||post.id == comment.parentComment?.parentId) {
                 comments += comment
                 comment.parentsStack += comment.parentId!! // до проверки !! не дойдет
                 if(comment.parentComment?.parentId != null) comment.parentsStack += comment.parentComment.parentId!!
-                return true
-            } else throw PostOrCommentNotFoundException()
+                found = true
+            }
         }
+        if (found) return true
+        else throw PostOrCommentNotFoundException()
 
-        return false
     }
 
     fun reportComment(comment: Comment, reason: Int) {
